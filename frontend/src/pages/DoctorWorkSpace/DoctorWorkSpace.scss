@@ -1,0 +1,8 @@
+.work_space {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	grid-template-rows: repeat(auto-fill, minmax(300px, 1fr));
+	justify-items: center;
+	gap: 5rem;
+	padding-bottom: 3rem;
+}

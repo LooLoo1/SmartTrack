@@ -1,0 +1,117 @@
+.table {
+	&-body {
+		display: flex;
+		align-items: center;
+		border-radius: var(--border-radius);
+		background-color: rgb(var(--color-white));
+		box-shadow: 0px 4px 20px rgba(var(--color-gray), 0.2);
+		overflow: hidden;
+		// gap: var(--gap);
+
+		&.active {
+			background-color: rgba(var(--accent-color), 0.2);
+		}
+	}
+	&-header {
+		height: 100%;
+		display: flex;
+		align-items: center;
+		border-radius: var(--border-radius);
+		padding: 1.25rem;
+		background-color: rgba(var(--accent-color), 0.3);
+		font-size: 1.33rem;
+	}
+	&-data {
+		// --rows: 5;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(1rem, 1fr));
+		align-items: center;
+		// grid-auto-flow: column;
+
+		// grid-template-columns: repeat(var(--rows), calc(calc(100% - var(--gap) * 2) / var(--rows)));
+		// display: flex;
+		// justify-content: space-between;
+		gap: 0.5rem;
+		padding: 0 calc(var(--gap) / 2);
+		width: 100%;
+		font-size: 1.33rem;
+
+		justify-items: center;
+	}
+	&-item {
+		white-space: nowrap;
+		padding: 0.5rem;
+		align-items: center;
+
+		&:first-child {
+			justify-self: flex-start;
+		}
+
+		&__label {
+			display: none;
+			font-weight: 700;
+		}
+
+		.name {
+			font-weight: 500;
+		}
+
+		.controls {
+			display: flex;
+			align-items: center;
+			gap: 1.66rem;
+
+			& > * {
+				background-color: transparent;
+				outline: none;
+				display: flex;
+				align-items: center;
+				border: none;
+				cursor: pointer;
+				transition: all 0.2s;
+				&:hover {
+					filter: brightness(0);
+				}
+				&:focus-visible {
+					transform: scale(1.2);
+					filter: brightness(0);
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 1048px) {
+	.table {
+		&-header {
+			width: 100%;
+			justify-content: center;
+			font-weight: 700;
+		}
+		&-body {
+			flex-direction: column;
+			width: 100%;
+		}
+		&-data {
+			grid-template-columns: 1fr;
+			grid-template-rows: repeat(auto-fit, minmax(0, 1fr));
+			justify-items: center;
+			gap: 0.5rem;
+			padding: 1rem 2rem;
+		}
+
+		&-item {
+			display: flex;
+			gap: 0.5rem;
+			justify-self: flex-start;
+
+			&:first-child,
+			&:last-child {
+				justify-self: flex-start;
+			}
+			&__label {
+				display: inline;
+			}
+		}
+	}
+}

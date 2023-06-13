@@ -1,0 +1,57 @@
+.list {
+	.active {
+		text-decoration: none;
+		li {
+			background-color: rgb(var(--accent-color));
+		}
+	}
+	a {
+		outline: none;
+		&:is(:focus, :hover) {
+			li {
+				background-color: rgb(var(--accent-color));
+			}
+		}
+		&:focus-visible {
+			li {
+				box-shadow: inset 2px 2px 0 0 rgb(var(--color-white)), inset 2px -2px 0 0 rgb(var(--color-white));
+				background-color: rgb(var(--accent-color));
+			}
+		}
+	}
+}
+
+li {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 1rem;
+
+	margin-left: 1rem;
+	padding: 1.25rem;
+	border-radius: 1.25rem 0 0 1.25rem;
+
+	color: rgb(var(--color-white));
+	background-color: transparent;
+	transition: background-color 0.2s;
+}
+
+.icon {
+	width: 2rem;
+	height: 2rem;
+	// --color: var(--color-white);
+
+	// &:hover{
+	// 	--color: var(--accent-color);
+	// }
+
+	// path {
+	// 	stroke: var(--color);
+	// 	fill: var(--color);
+	// 	// transition: all 0.2s;
+	// }
+}
+
+.default {
+	text-decoration: none;
+}

@@ -1,0 +1,46 @@
+.input {
+	--padding: 1.333rem;
+
+	.label {
+		margin-left: var(--padding);
+		margin-bottom: calc(var(--padding) / 3);
+		font-size: 1rem;
+		color: rgb(var(--color-black));
+
+		&.error {
+			--color: red;
+		}
+	}
+
+	.control {
+		display: flex;
+		--color: rgb(var(--color-gray));
+		font-size: var(--padding);
+		padding: calc(var(--padding) / 2) var(--padding);
+		border-radius: 2rem;
+		transition: border 0.2s;
+		border: 1px solid var(--color);
+
+		outline: none;
+		margin: 0 auto;
+
+		&:is(:focus, :focus-visible) {
+			--color: rgb(var(--color-black));
+		}
+
+		&.error {
+			--color: red;
+		}
+		.default {
+		}
+	}
+
+	.message {
+		margin-left: var(--padding);
+		max-width: 20rem;
+
+		margin-top: calc(var(--padding) / 3);
+		font-size: 1rem;
+		color: red;
+	}
+}
