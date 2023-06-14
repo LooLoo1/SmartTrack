@@ -2,10 +2,6 @@ const { v4: uuidv4 } = require("uuid");
 const db = require("../index");
 const { authenticateUser, verifyToken } = require("../auth/utils/authentication");
 
-// const copy = (obj) => {
-// 	return JSON.parse(JSON.stringify(obj));
-// };
-
 const queries = {
 	getUser: ({ id }) => {
 		return db.users.find((user) => user.id == id);
@@ -72,10 +68,10 @@ const queries = {
 		return db.rums.filter(({ id }) => ids.includes(String(id)));
 	},
 
-	checkSession: ({token}) => {
-		const user = verifyToken(token)
-		return {user, token}
-	  },
+	checkSession: ({ token }) => {
+		const user = verifyToken(token);
+		return { user, token };
+	},
 };
 
 const mutations = {
@@ -87,6 +83,7 @@ const mutations = {
 	createUser: ({ input }) => {
 		const { name, phone, email, password, role, doctors } = input;
 
+		// м тип це число а функція повертає строку
 		// const newUserId = uuidv4();
 		const newUserId = Date.now();
 
@@ -107,10 +104,10 @@ const mutations = {
 	createRum: ({ input }) => {
 		const { name, users, createdAt, require } = input;
 
-		// Генерування унікального ID для нової кімнати
-		const newRumId = uuidv4();
+		// м тип це число а функція повертає строку
+		// const newRumId = uuidv4();
+		const newRumId = Date.now();
 
-		// Створення нового об'єкта кімнати
 		const newRum = {
 			id: newRumId,
 			name,
@@ -118,8 +115,6 @@ const mutations = {
 			createdAt,
 			require,
 		};
-
-		// Додавання нової кімнати до бази даних
 		db.rums.push(newRum);
 
 		return newRum;
@@ -224,23 +219,11 @@ const mutations = {
 		user.email = email || user.email;
 		user.password = password || user.password;
 
-		// user = {
-		// 	...user,
-		// 	name,
-		// 	phone,
-		// 	email,
-		// 	password,
-		// };
-
-		// // user = {
-		// // 	...user,
-		// // 	...args
-		// // };
 		return user;
 	},
 
 	changeAssistantDoctorsList: ({ assistantId, doctorId }) => {
-		doctorId = Number(doctorId)
+		doctorId = Number(doctorId);
 		const userIndex = db.users.findIndex((user) => user.id === Number(assistantId));
 		const validDoctor = db.users.some((user) => user.id === Number(doctorId));
 
