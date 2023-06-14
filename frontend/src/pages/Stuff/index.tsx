@@ -25,6 +25,8 @@ export const Stuff = () => {
 		variables: { roles: STUFF },
 	});
 	const { role: userRole } = useAppSelector((state) => state.auth.user);
+	// const { user } = useAppSelector((state) => state.auth);
+	// const {role: userRole = ''} = user
 
 	useEffect(() => {
 		if (data) {

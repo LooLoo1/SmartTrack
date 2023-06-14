@@ -19,7 +19,7 @@ export const TableItem = ({ data, role, index = 0 }: Props) => {
 	const { isOpen, onClose, onOpen } = usePopup();
 	const { id: userId, role: userRole, doctors = [] } = useAppSelector((state) => state.auth.user);
 
-	const [selectDoctor, setSelectDoctor] = useState<boolean>(doctors.includes(data.id));
+	const [selectDoctor, setSelectDoctor] = useState<boolean>(doctors && doctors.includes(data.id));
 
 	const [popups, setPopup] = useState<ReactNode>(null);
 	const [popupTitle, setPopupTitle] = useState("");

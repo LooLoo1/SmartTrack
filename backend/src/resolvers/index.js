@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 const db = require("../index");
-const { authenticateUser } = require("../auth/utils/authentication");
+const { authenticateUser, verifyToken } = require("../auth/utils/authentication");
 
 // const copy = (obj) => {
 // 	return JSON.parse(JSON.stringify(obj));
@@ -71,6 +71,11 @@ const queries = {
 	getRumsByIds: ({ ids }) => {
 		return db.rums.filter(({ id }) => ids.includes(String(id)));
 	},
+
+	checkSession: ({token}) => {
+		const user = verifyToken(token)
+		return {user, token}
+	  },
 };
 
 const mutations = {

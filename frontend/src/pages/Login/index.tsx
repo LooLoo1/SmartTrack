@@ -19,7 +19,7 @@ export const Login = () => {
 		formState: { errors },
 		handleSubmit,
 		setError,
-	} = useForm<FormData>({ mode: "onBlur" });
+	} = useForm<FormData>({ mode: "onChange" });
 
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();

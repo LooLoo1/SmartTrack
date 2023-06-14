@@ -90,6 +90,11 @@ const schema = buildSchema(`
     password: String
   }
 
+  type AuthResponse {
+    user: User!
+    token: String!
+  }
+
   type Query {
     getUser(id: ID!): User
     getUsers: [User!]!
@@ -100,11 +105,8 @@ const schema = buildSchema(`
     getRum(id: ID!): Rum
     getRums: [Rum!]!
     getRumsByIds(ids: [ID!]!): [Rum!]!
-  }
-
-  type AuthResponse {
-    user: User!
-    token: String!
+    
+    checkSession(token: String!): AuthResponse
   }
 
   type Mutation {
