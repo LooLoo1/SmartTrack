@@ -1,14 +1,16 @@
-import { ReactElement, CSSProperties } from "react";
+import { CSSProperties, ReactElement } from "react";
+import useCSSVariable from "../../hooks/useCSSVariable";
 
 export type Props = {
 	color?: string;
 } & React.DetailedHTMLProps<React.SVGAttributes<SVGSVGElement>, SVGSVGElement>;
 
 export const Allerts = ({ color = "white", ...props }: Props) => {
-
 	const styles = {
 		"--color": color,
 	} as CSSProperties;
+
+	color = useCSSVariable(color, "white");
 
 	return (
 		<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} style={styles}>
@@ -24,10 +26,11 @@ export const Allerts = ({ color = "white", ...props }: Props) => {
 };
 
 export const Dashboard = ({ color = "white", ...props }: Props) => {
-
 	const styles = {
 		"--color": color,
 	} as CSSProperties;
+
+	color = useCSSVariable(color, "white");
 
 	return (
 		<svg viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} style={styles}>
@@ -52,10 +55,11 @@ export const Dashboard = ({ color = "white", ...props }: Props) => {
 };
 
 export const Sequence = ({ color = "white", ...props }: Props) => {
-
 	const styles = {
 		"--color": color,
 	} as CSSProperties;
+
+	color = useCSSVariable(color, "white");
 
 	return (
 		<svg viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} style={styles}>
@@ -142,10 +146,11 @@ export const Sequence = ({ color = "white", ...props }: Props) => {
 };
 
 export const Stuff = ({ color = "white", ...props }: Props) => {
-
 	const styles = {
 		"--color": color,
 	} as CSSProperties;
+
+	color = useCSSVariable(color, "white");
 
 	return (
 		<svg viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} style={styles}>
@@ -162,10 +167,11 @@ export const Stuff = ({ color = "white", ...props }: Props) => {
 };
 
 export const Trash = ({ color = "white", ...props }: Props) => {
-
 	const styles = {
 		"--color": color,
 	} as CSSProperties;
+
+	color = useCSSVariable(color, "white");
 
 	return (
 		<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} style={styles}>
@@ -190,10 +196,11 @@ export const Trash = ({ color = "white", ...props }: Props) => {
 };
 
 export const Pen = ({ color = "white", ...props }: Props) => {
-
 	const styles = {
 		"--color": color,
 	} as CSSProperties;
+
+	color = useCSSVariable(color, "white");
 
 	return (
 		<svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} style={styles}>
@@ -209,10 +216,11 @@ export const Pen = ({ color = "white", ...props }: Props) => {
 };
 
 export const LogOut = ({ color = "white", ...props }: Props) => {
-
 	const styles = {
 		"--color": color,
 	} as CSSProperties;
+
+	color = useCSSVariable(color, "white");
 
 	return (
 		<svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} style={styles}>
@@ -236,11 +244,11 @@ export const LogOut = ({ color = "white", ...props }: Props) => {
 };
 
 export const Arrow = ({ color = "white", ...props }: Props) => {
-
 	const styles = {
 		"--color": color,
 	} as CSSProperties;
 
+	color = useCSSVariable(color, "white");
 	return (
 		<svg viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} style={styles}>
 			<path
@@ -250,24 +258,6 @@ export const Arrow = ({ color = "white", ...props }: Props) => {
 		</svg>
 	);
 };
-
-// export const StratoScope = ({ color = "white", ...props }: Props) => {
-
-// 	const styles = {
-// 		"--color": color,
-// 	} as CSSProperties;
-
-// 	return (
-// 		<svg viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} style={styles}>
-// 			<path
-// 				fillRule="evenodd"
-// 				clipRule="evenodd"
-// 				d="M4.41615 3.33984H3.40053C2.31752 3.74219 1.7726 4.47656 1.78139 5.52344C1.8019 7.94531 4.65541 11.1719 6.64272 11.1719C8.36147 11.1719 11.0285 8.57812 11.4484 6.09766C11.6769 4.74219 11.1456 3.81641 9.86928 3.33984H8.86928C7.94838 3.33984 7.19936 2.58984 7.19936 1.67188C7.19936 0.75 7.94838 0 8.86928 0C9.79018 0 10.5392 0.75 10.5392 1.67188V2.41406C11.4259 2.80859 12.0441 3.42188 12.3624 4.19531C12.6115 4.80078 12.6779 5.50391 12.546 6.28125C12.1193 8.80469 9.58705 11.7969 7.19936 12.2305V13.9922C7.19936 16.1406 8.9474 17.8867 11.0958 17.8867C13.2443 17.8867 14.9923 16.1406 14.9923 13.9922V13.3398C13.7238 13.082 12.7658 11.957 12.7658 10.6133C12.7658 9.07812 14.0148 7.82812 15.549 7.82812C17.0841 7.82812 18.3322 9.07812 18.3322 10.6133C18.3322 11.957 17.3742 13.082 16.1056 13.3398V13.9922C16.1056 16.7539 13.8585 19 11.0958 19C8.33315 19 6.08608 16.7539 6.08608 13.9922V12.2305C3.52943 11.7617 0.691544 8.29297 0.668107 5.53516C0.656388 4.10156 1.39076 3.00391 2.74623 2.40625V1.67188C2.74623 0.75 3.49526 0 4.41615 0C5.33705 0 6.08608 0.75 6.08608 1.67188C6.08608 2.58984 5.33705 3.33984 4.41615 3.33984ZM4.41615 1.11328C4.10951 1.11328 3.85951 1.36328 3.85951 1.67188V2.22656H4.41615C4.72279 2.22656 4.97279 1.97656 4.97279 1.67188C4.97279 1.48828 4.88295 1.32422 4.74526 1.22266C4.65346 1.15234 4.5392 1.11328 4.41615 1.11328ZM15.549 8.94531C14.6281 8.94531 13.879 9.69141 13.879 10.6133C13.879 11.5352 14.6281 12.2812 15.549 12.2812C16.007 12.2812 16.422 12.0977 16.7238 11.7969C17.0294 11.4961 17.2189 11.0781 17.2189 10.6133C17.2189 9.69141 16.4699 8.94531 15.549 8.94531ZM8.86928 2.22656H9.42592V1.67188C9.42592 1.36328 9.17592 1.11328 8.86928 1.11328C8.56264 1.11328 8.31264 1.36328 8.31264 1.67188C8.31264 1.875 8.42201 2.05078 8.58412 2.14844C8.66713 2.19922 8.76479 2.22656 8.86928 2.22656ZM16.1056 10.0547H14.9923V11.1719H16.1056V10.0547Z"
-// 				fill={color}
-// 			/>
-// 		</svg>
-// 	);
-// };
 
 type TIconComponent = ({ color, ...props }: Props) => ReactElement;
 
@@ -281,5 +271,4 @@ export const IconsList: Record<string, TIconComponent> = {
 	Pen,
 	LogOut,
 	Arrow,
-	// StratoScope,
 };

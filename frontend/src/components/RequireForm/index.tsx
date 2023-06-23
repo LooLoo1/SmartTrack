@@ -48,25 +48,3 @@ export const RequireForm = ({ setRequire, newRequire }: Props) => {
 		</div>
 	);
 };
-
-// const [checkedItems, setCheckedItems] = useState<Requirement[]>(newRequire);
-
-// const findItemByLabel = (label: string) => {
-// 	return REQUIRE.find((item) => item.label === label);
-// };
-
-// const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, label: string) => {
-// 	if (event.target.checked) {
-// 		const item = findItemByLabel(label);
-// 		if (item) {
-// 			const { label, must } = item;
-// 			setCheckedItems([...checkedItems, { label, must }]);
-// 		}
-// 	} else {
-// 		setCheckedItems(checkedItems.filter((item) => item.label !== label));
-// 	}
-// };
-
-// useEffect(() => {
-// 	setRequire(checkedItems);
-// }, [checkedItems]);

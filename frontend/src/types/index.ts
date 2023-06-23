@@ -1,42 +1,18 @@
-import { ReactNode } from "react";
 
-export type Requirement = {
-	label: string;
-	must: boolean;
-	color?: string;
-	__typename?: string;
-};
+export * from "./serverTypes"
 
-export type Rum = {
-	id: number;
-	name: string;
-	users: number[];
-	createdAt: number;
-	require: Requirement[];
-};
-
-export type Doctor = {
-	id: number;
-	name: string;
-	specialty: string;
-	maxLength: number;
-	rums: number[];
-};
-
-export interface UserWithData {
-	id: number;
-	name: string;
-	phone: string;
-	email: string;
-	role: "admin" | "assistant" | "receptionist" | "doctor";
-	maxLength: number | null;
-
-	doctors: [UserWithData] | [];
-	rums: [Rum] | [];
+export enum Role {
+	Admin = "admin",
+	Assistant = "assistant",
+	Receptionist = "receptionist",
+	Doctor = "doctor",
 }
 
-export interface TRow {
-	label: string;
-	value: string | ReactNode;
-	className?: string;
-}
+export type RoleType = (typeof Role)[keyof typeof Role]; // "admin" | "assistant" | "receptionist" | "doctor"
+export type UsersRole = Role.Doctor | Role.Assistant | Role.Receptionist; //  "assistant" | "receptionist" | "doctor"
+export const { Admin, Assistant, Receptionist, Doctor } = Role;
+
+export type WithTypename<T extends string> = {
+	__typename: T;
+  };
+

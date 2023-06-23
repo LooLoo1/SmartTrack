@@ -5,22 +5,27 @@
 	border-radius: 50%;
 	aspect-ratio: 1 / 1;
 
-    color: rgb(var(--color));
+	color: rgb(var(--color));
 	border: 2px solid rgb(var(--color));
 	background-image: linear-gradient(rgba(var(--color), 0.2), rgba(var(--color), 0.2)), linear-gradient(white, white);
 
 	&.small {
+		width: 3.33rem;
+		font-size: 1.33rem;
+		background-image: none;
+		background-color: rgb(var(--color));
+		color: rgb(var(--color-black));
 	}
 	&.medium {
 		width: 5.4rem;
-        font-size: 2.5rem;
+		font-size: 2.5rem;
 	}
 	&.large {
 		width: 7.5rem;
-        font-size: 2.5rem;
+		font-size: 2.5rem;
 	}
 
-    &.must{
-        color: rgb(var(--orange-color));
-    }
+	&.must {
+		color: rgb(var(--orange-color));
+	}
 }

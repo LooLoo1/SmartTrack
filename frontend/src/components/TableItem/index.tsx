@@ -7,7 +7,7 @@ import { useAppSelector } from "../../hooks/redux";
 import { usePopup } from "../../hooks/usePopup";
 import { UserWithData } from "../../types";
 import { Button } from "../Button";
-import { DeleteUserForm } from "../DeleteUserForm";
+import { DeleteForm } from "../DeleteForm";
 import { EditUserForm } from "../EditUserForm";
 import { Popup } from "../Popup";
 import "./TableItem.scss";
@@ -37,7 +37,7 @@ export const TableItem = ({ data, role, index = 0 }: Props) => {
 	const deleteUser = useCallback(
 		({ id, role }: Partial<UserWithData>) => {
 			setPopupTitle("Delete " + capitalizeFirstLetter(role || ""));
-			setPopup(<DeleteUserForm data={{ id, role }} onClose={onClose} />);
+			setPopup(<DeleteForm data={{ id, role }} type={"user"} onClose={onClose} />);
 			onOpen();
 		},
 		[onClose, onOpen],

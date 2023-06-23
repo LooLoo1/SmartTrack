@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import "./App.scss";
 import { Layout } from "./components/Layout";
-import { IRoutes, PROTECT_ROUTES } from "./constants";
+import { PROTECT_ROUTES, TRoutes } from "./constants";
 import { useAppDispatch, useAppSelector } from "./hooks/redux";
 import { Home, Login } from "./pages";
 import { checkSessionStatus } from "./store/reducers/authReducer/actionCreators/checkSessionStatus";
 
 function App() {
-	const [routes, setRoutes] = useState<IRoutes[]>([]);
+	const [routes, setRoutes] = useState<TRoutes[]>([]);
 	const user = useAppSelector((state) => state.auth.user);
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
@@ -28,7 +27,7 @@ function App() {
 		<Routes>
 			<Route path="/" element={<Layout />}>
 				<Route index element={<Home />} />
-				{routes.map(({ path, element }: IRoutes) => (
+				{routes.map(({ path, element }: TRoutes) => (
 					<Route key={path} path={path} element={element} />
 				))}
 			</Route>

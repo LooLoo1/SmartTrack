@@ -8,10 +8,17 @@ const Rum = `
     require: [Requirement!]!
   }
 
+  type RumWithData {
+    id: ID!
+    name: String!
+    users: [User!]
+    createdAt: Int!
+    require: [Requirement!]!
+  }
+
   input CreateRumInput {
     name: String!
     users: [ID!]!
-    createdAt: Int!
     require: [RequirementInput!]!
   }
 `;

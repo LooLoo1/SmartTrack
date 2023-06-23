@@ -6,7 +6,6 @@
 		background-color: rgb(var(--color-white));
 		box-shadow: 0px 4px 20px rgba(var(--color-gray), 0.2);
 		overflow: hidden;
-		// gap: var(--gap);
 
 		&.active {
 			background-color: rgba(var(--accent-color), 0.2);
@@ -22,15 +21,9 @@
 		font-size: 1.33rem;
 	}
 	&-data {
-		// --rows: 5;
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(1rem, 1fr));
 		align-items: center;
-		// grid-auto-flow: column;
-
-		// grid-template-columns: repeat(var(--rows), calc(calc(100% - var(--gap) * 2) / var(--rows)));
-		// display: flex;
-		// justify-content: space-between;
 		gap: 0.5rem;
 		padding: 0 calc(var(--gap) / 2);
 		width: 100%;

@@ -7,10 +7,13 @@ const Mutation = `
 		createRum(input: CreateRumInput!): Rum!
 
 		deleteUserFromRum(rumId: ID!, userId: ID!): Rum
+		addUserInRum(rumId: ID!, userId: ID!): Rum
 		updateDoctorLength(userId: ID!, maxLength: Int!): User!
 
 		resetDoctorFromRums(userId: ID!): User!
 		updateUser(input: UpdateUserInput!): User!
+
+		updateRoomName(rumId: ID!, name: String!): Rum
 		updateRumRequire(rumId: ID!, require: [RequirementInput!]!): Rum
 
 		deleteUser(userId: ID!): Boolean

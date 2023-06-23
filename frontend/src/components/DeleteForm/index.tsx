@@ -1,21 +1,27 @@
 import { useMutation } from "@apollo/client";
 import { mutations } from "../../api/mutations";
-import { DELETE_USER } from "../../apollo-client/mutation";
+import { DELETE_RUM, DELETE_USER } from "../../apollo-client/mutation";
 import { UserWithData } from "../../types";
 import { Button } from "../Button";
-import "./DeleteUserForm.scss";
+import "./DeleteForm.scss";
 
-type PropsEditUser = {
+type Props = {
 	data: Partial<UserWithData>;
 	onClose: () => void;
+
+	type?: "user" | "room" | string;
+	refetch?: () => void
 };
 
-export const DeleteUserForm = ({ data, onClose }: PropsEditUser) => {
+export const DeleteForm = ({ data, onClose, type = "user", refetch }: Props) => {
 	const { id, role } = data;
 	const [deleteUser] = useMutation(DELETE_USER);
+	const [deleteRum] = useMutation(DELETE_RUM);
 
 	const onDelete = () => {
-		mutations(deleteUser, { userId: id });
+		if (type === "user") mutations(deleteUser, { userId: id });
+		if (type === "room") mutations(deleteRum, { rumId: id });
+		if (refetch) refetch()
 		onClose();
 	};
 

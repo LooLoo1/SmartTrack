@@ -1,6 +1,12 @@
-import { useMemo } from "react";
-import { UserWithData, TRow } from "../../../types";
+import { ReactNode, useMemo } from "react";
+import { Assistant, Doctor, Receptionist, UserWithData } from "../../../types";
 import { Pen, Stuff, Trash } from "../../Icon";
+
+export type TRow = {
+	label: string;
+	value: ReactNode;
+	className?: string;
+}
 
 
 type UseTableItemRowsProps = {
@@ -26,10 +32,10 @@ export const useTableItemRows = ({
 		const rumsNames = rums.length > 0 ? rums.map(({ name }) => name).join(", ") : "none";
 
 		switch (role) {
-			case "doctor":
+			case Doctor:
 				return [
 					{ label: "Name", value: name, className: "name" },
-					...(userRole !== "assistant" ? [{ label: "Phone", value: phone }] : []),
+					...(userRole !== Assistant ? [{ label: "Phone", value: phone }] : []),
 					{ label: "Email", value: email },
 					{ label: "Rooms", value: rumsNames },
 
@@ -40,10 +46,10 @@ export const useTableItemRows = ({
 									value: (
 										<div className="controls">
 											<button onClick={() => editUser({ id, name, phone, email })}>
-												<Pen className="icon" color="#6AC7BE" />
+												<Pen className="icon" color="--accent-color" />
 											</button>
 											<button>
-												<Trash onClick={() => deleteUser({ id, role })} className="icon" color="#6AC7BE" />
+												<Trash onClick={() => deleteUser({ id, role })} className="icon" color="--accent-color" />
 											</button>
 										</div>
 									),
@@ -51,7 +57,7 @@ export const useTableItemRows = ({
 						]
 						: []),
 
-					...(userRole === "assistant"
+					...(userRole === Assistant
 						? [
 								{
 									label: "Select Doctor",
@@ -75,13 +81,13 @@ export const useTableItemRows = ({
 									value: (
 										<div className="controls">
 											<button>
-												<Stuff className="icon" color="#6AC7BE" />
+												<Stuff className="icon" color="--accent-color" />
 											</button>
 											<button onClick={() => editUser({ id, name, phone, email })}>
-												<Pen className="icon" color="#6AC7BE" />
+												<Pen className="icon" color="--accent-color" />
 											</button>
 											<button>
-												<Trash onClick={() => deleteUser({ id, role })} className="icon" color="#6AC7BE" />
+												<Trash onClick={() => deleteUser({ id, role })} className="icon" color="--accent-color" />
 											</button>
 										</div>
 									),
@@ -89,7 +95,7 @@ export const useTableItemRows = ({
 						]
 						: []),
 				];
-			case "receptionist":
+			case Receptionist:
 				return [
 					{ label: "Name", value: name, className: "name" },
 					{ label: "Email", value: email },
@@ -102,10 +108,10 @@ export const useTableItemRows = ({
 									value: (
 										<div className="controls">
 											<button onClick={() => editUser({ id, name, phone, email })}>
-												<Pen className="icon" color="#6AC7BE" />
+												<Pen className="icon" color="--accent-color" />
 											</button>
 											<button>
-												<Trash onClick={() => deleteUser({ id, role })} className="icon" color="#6AC7BE" />
+												<Trash onClick={() => deleteUser({ id, role })} className="icon" color="--accent-color" />
 											</button>
 										</div>
 									),

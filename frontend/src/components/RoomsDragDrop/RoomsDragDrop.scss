@@ -1,0 +1,57 @@
+.dnd {
+	&-box {
+		position: relative;
+		border-radius: 0.5rem;
+		padding: calc(1rem + calc(1.166rem / 2));
+		border: 2px dashed rgba(var(--accent-color), 0.8);
+		background-color: rgba(var(--color-white), 0.6);
+		&_dnd {
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+			gap: 0.5rem;
+			transition: height 0.2s;
+		}
+
+		&::before {
+			position: absolute;
+			content: "Drag and Drop rooms to the box";
+			inset: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1.166rem;
+			font-weight: 500;
+			transition: color 0.2s;
+			color: rgb(var(--color-black));
+		}
+		&:hover::before {
+			color: rgb(var(--accent-color));
+		}
+	}
+	&-title {
+		display: flex;
+		align-items: center;
+	}
+	&-container {
+		display: block;
+		transition: height 0.2s;
+	}
+
+	&-wrapper {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 3rem;
+		margin-bottom: 1.66rem;
+	}
+}
+
+@media (max-width: 650px) {
+	.dnd {
+		&-wrapper {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+	}
+}

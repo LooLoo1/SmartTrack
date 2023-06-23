@@ -3,15 +3,17 @@ import { HTMLAttributes, useEffect, useState } from "react";
 import { mutations } from "../../api/mutations";
 import { RESET_DOCTOR_RUMS, SET_DOCTOR_MAX_LENGTH } from "../../apollo-client/mutation";
 import { GET_DOCTORS_ROOMS } from "../../apollo-client/query";
-import { Doctor, Rum } from "../../types";
+import { useCustomScroll } from "../../hooks";
+import { TDoctor, Rum } from "../../types";
 import { Button } from "../Button";
 import { RumItem } from "../RumItem";
 import "./DoctorLine.scss";
 type Props = HTMLAttributes<HTMLDivElement> & {
-	data: Doctor;
+	data: TDoctor;
 };
 export const DoctorLine = ({ data }: Props) => {
 	const { id, name, maxLength, specialty, rums: ids } = data;
+	const lineRef = useCustomScroll<HTMLDivElement>("horizontal");
 
 	const [rums, setRums] = useState<Rum[]>([]);
 	const [length, setLength] = useState<number>(0);
@@ -96,7 +98,7 @@ export const DoctorLine = ({ data }: Props) => {
 				</div>
 			</div>
 
-			<div className="item-line">
+			<div className="item-line" ref={lineRef}>
 				{rums.map((rum) => (
 					<RumItem key={rum.id} data={rum} />
 				))}

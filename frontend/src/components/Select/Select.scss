@@ -1,0 +1,95 @@
+.selector-component {
+	--padding: 1rem;
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	width: 25rem;
+	outline: none;
+
+	&:focus-visible .selected-value {
+		background-color: rgba(var(--accent-color), 0.15);
+		border: 2px solid rgb(var(--accent-color));
+	}
+
+	.selected-value {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: var(--padding) calc(var(--padding) * 2);
+		border: 2px solid rgba(var(--header-color), 0.3);
+		border-radius: 4rem;
+		background-color: transparent;
+		font-size: 1.33rem;
+		transition: all 0.2s;
+
+		.selector-icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 1.5rem;
+			height: 1em;
+			margin-left: 8px;
+
+			transition: all 0.2s ease-in-out;
+			transform: rotate(0deg);
+		}
+	}
+
+	&.open {
+		.selected-value {
+			.selector-icon {
+				transform: rotate(180deg);
+			}
+		}
+	}
+
+	.options {
+		position: absolute;
+		top: calc(100% + calc(var(--padding) / 2));
+		left: 0;
+		right: 0;
+		z-index: 999;
+		background-color: rgb(var(--color-white));
+		border: 2px solid rgba(var(--header-color), 0.3);
+		border-radius: 1rem;
+		max-height: 200px;
+		overflow-y: auto;
+
+		input[type="radio"] {
+			position: absolute;
+			width: 0;
+			height: 0;
+			outline: none;
+		}
+
+		input:focus-visible + label {
+			background-color: rgba(var(--accent-color), 1);
+		}
+
+		.option {
+			display: block;
+			position: relative;
+			font-size: 1.33rem;
+			padding: var(--padding);
+			cursor: pointer;
+			transition: all 0.2s;
+			user-select: none;
+			background-color: rgb(var(--color-white));
+
+			&:hover {
+				color: rgb(var(--color-white));
+				background-color: rgba(var(--accent-color), 0.5);
+			}
+
+			&.selected {
+				color: rgb(var(--color-white));
+				background-color: rgba(var(--accent-color), 1);
+
+				&:hover {
+					background-color: rgba(var(--accent-color), 1);
+				}
+			}
+		}
+	}
+}

@@ -1,3 +1,5 @@
+import { RoleType } from "../../../types";
+
 export interface AuthState {
 	isAuthenticated: boolean;
 	user: User | null;
@@ -10,7 +12,7 @@ export interface User {
 	name: string;
 	phone: string;
 	email: string;
-	role: "admin" | "assistant" | "receptionist" | "doctor";
+	role: RoleType;
 
 	doctors: [number] | null;
 	maxLength: number | null

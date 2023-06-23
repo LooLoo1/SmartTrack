@@ -5,8 +5,8 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
 
 import { client } from "./apollo-client";
-import "./index.scss";
 import { setupStore } from "./store/store.ts";
+import "./index.scss";
 
 const store = setupStore();
 

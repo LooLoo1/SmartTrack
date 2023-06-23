@@ -27,7 +27,7 @@ export const Header = ({ type, className = "", burger }: Props) => {
 			<div className="header-container">
 				<h2 className="logo">LOGO</h2>
 				<NavBar />
-				<Button variant="out" leftChild={<LogOut color="#8484D8" className="icon" />} onClick={outHandler}>
+				<Button variant="out" leftChild={<LogOut color="--out-color" className="icon" />} onClick={outHandler}>
 					Sign Out
 				</Button>
 				{burger}

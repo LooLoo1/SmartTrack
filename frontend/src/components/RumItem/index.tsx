@@ -6,20 +6,23 @@ import { UPDATE_RUM_REQUIRE } from "../../apollo-client/mutation";
 import { usePopup } from "../../hooks/usePopup";
 import { Requirement, Rum } from "../../types";
 import { Avatar } from "../Avatar";
-import { Arrow } from "../Icon";
+import { Arrow, Pen } from "../Icon";
 import { Popup } from "../Popup";
 import { RequireForm } from "../RequireForm";
 import "./RumItem.scss";
 import { useRequireData } from "./hooks/useRequireData";
 
 type Props = HTMLAttributes<HTMLDivElement> & {
-	data: Rum;
-	size?: "medium" | "large";
+	data: Partial<Rum>;
+	size?: "small" | "medium" | "large";
+
+	onDelete?: (id: string) => void;
+	onEdit?: (id: string) => void;
 };
 
-export const RumItem = ({ data, size = "medium", className = "" }: Props) => {
-	const { id, name, users, createdAt, require } = data;
-	const [updateRumRequire, { loading, error }] = useMutation(UPDATE_RUM_REQUIRE);
+export const RumItem = ({ data, size = "medium", className = "", onDelete, onEdit }: Props) => {
+	const { id = "", name, users = [""], createdAt = 0, require = [] } = data;
+	const [updateRumRequire, { error }] = useMutation(UPDATE_RUM_REQUIRE);
 	const [newRequire, setRequire] = useState<Requirement[]>(require.map(({ __typename, ...rest }) => rest));
 
 	const { isOpen, onClose, onOpen } = usePopup();
@@ -28,17 +31,46 @@ export const RumItem = ({ data, size = "medium", className = "" }: Props) => {
 	const time = dayjs(createdAt, "HH:mm:ss").format("HH:mm");
 	const classNameRum = useMemo(
 		() => `rum ${size} ${className} ${isOpen ? "shadow" : ""} ${mustExist ? "must" : ""}`,
-		[size, className, isOpen, newRequire, mustExist],
+		[size, className, isOpen, mustExist],
 	);
 
 	const onRequirement = (arr: Requirement[]) => setRequire(arr);
 
 	useEffect(() => {
-		mutations(updateRumRequire, {
-			rumId: id,
-			require: newRequire,
-		});
-	}, [newRequire]);
+		if (size !== "small") {
+			mutations(updateRumRequire, {
+				rumId: id,
+				require: newRequire,
+			});
+		}
+	}, [newRequire, id, size, updateRumRequire]);
+
+	if (size === "small" && onDelete && onEdit) {
+		return (
+			<div className={classNameRum}>
+				<div className="head">
+					<div
+						className="exit"
+						onClick={() => {
+							onDelete(String(id));
+						}}
+					/>
+					<Pen
+						className="edit"
+						color="--accent-color"
+						onClick={() => {
+							onEdit(String(id));
+						}}
+					/>
+				</div>
+
+				<div className="body">
+					<Avatar size={size} title={name} color={"var(--accent-color)"} must={avatarMust} maxLength={5} />
+					{users[0] && <p className="body-label">{users[0]}</p>}
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<>
@@ -51,7 +83,7 @@ export const RumItem = ({ data, size = "medium", className = "" }: Props) => {
 				<div className="body">
 					<Avatar size={size} title={avatarTitle} color={avatarColor} must={avatarMust} />
 					<p className="body-label">
-						{lastItemLabel || avatarTitle} {<Arrow className="icon" color="#202B5D" />}
+						{lastItemLabel || avatarTitle} {<Arrow className="icon" color="--header-color" />}
 					</p>
 					{error && <p className="error">{String(error)}</p>}
 				</div>

@@ -2,7 +2,7 @@ import { useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
 import { mutations } from "../../api/mutations";
 import { CREATE_USER, EDIT_USER } from "../../apollo-client/mutation";
-import { UserWithData } from "../../types";
+import { UserWithData, UsersRole } from "../../types";
 import { Button } from "../Button";
 import { Input } from "../Input";
 import "./EditUserForm.scss";
@@ -12,7 +12,7 @@ type FormData = {
 	phone: string;
 	email: string;
 	password: string;
-	role: "doctor" | "assistant" | "receptionist";
+	role: UsersRole;
 };
 
 type PropsEditUser = {

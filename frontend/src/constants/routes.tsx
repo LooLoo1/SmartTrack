@@ -1,63 +1,58 @@
 import { ReactNode } from "react";
-import { Dashboard, DoctorWorkSpace, Doctors, Sequence, Stuff } from "../pages";
+import { Dashboard, DoctorWorkSpace, Sequence, Stuff } from "../pages";
 
-export interface IRoutes {
+export type TRoutes = {
 	path: string;
 	element: ReactNode;
 }
 
-const admin: IRoutes[] = [
+const admin: TRoutes[] = [
 	{
 		path: "Dashboard",
-		element: <Dashboard/>,
+		element: <Dashboard />,
 	},
 	{
 		path: "Stuff",
-		element: <Stuff/>,
+		element: <Stuff />,
 	},
 	{
 		path: "Sequence",
-		element: <Sequence/>,
+		element: <Sequence />,
 	},
 ];
 
-const assistant: IRoutes[] = [
+const assistant: TRoutes[] = [
 	{
 		path: "Dashboard",
-		element: <Dashboard/>,
+		element: <Dashboard />,
 	},
 	{
 		path: "Doctors",
-		element: <Doctors/>,
+		element: <Stuff type={"assistant"} />,
 	},
 ];
 
-const receptionist: IRoutes[] = [
+const receptionist: TRoutes[] = [
 	{
 		path: "Dashboard",
-		element: <Dashboard/>,
+		element: <Dashboard />,
 	},
 	{
 		path: "Stuff",
-		element: <Stuff/>,
+		element: <Stuff />,
 	},
 ];
 
-const doctor: IRoutes[] = [
+const doctor: TRoutes[] = [
 	{
 		path: ":id",
-		element: <DoctorWorkSpace/>,
+		element: <DoctorWorkSpace />,
 	},
 ];
 
-
-export const PROTECT_ROUTES:{
-	[key: string]: IRoutes[];
-	// admin: IRoutes[];
-	// assistant: IRoutes[];
-	// receptionist: IRoutes[];
-	// doctor: IRoutes[];
-  } = {
+export const PROTECT_ROUTES: {
+	[key: string]: TRoutes[];
+} = {
 	admin,
 	assistant,
 	receptionist,

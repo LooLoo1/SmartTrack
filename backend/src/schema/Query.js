@@ -9,6 +9,7 @@ const Query = `
 
 		getRum(id: ID!): Rum
 		getRums: [Rum!]!
+		getRumsWithData: [RumWithData]
 		getRumsByIds(ids: [ID!]!): [Rum!]!
 		checkSession(token: String!): AuthResponse
 	}

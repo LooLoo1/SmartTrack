@@ -5,7 +5,7 @@ import { Button } from "../../components/Button";
 import { EditUserForm } from "../../components/EditUserForm";
 import { Popup } from "../../components/Popup";
 import { TableItem } from "../../components/TableItem";
-import { STUFF } from "../../constants";
+import { DOCTORS, STUFF } from "../../constants";
 import { capitalizeFirstLetter, splitDataByRole } from "../../helpers";
 import { useAppSelector } from "../../hooks/redux";
 import { usePopup } from "../../hooks/usePopup";
@@ -16,21 +16,24 @@ type TStuff = {
 	[key: string]: UserWithData[];
 };
 
-export const Stuff = () => {
+type Props = {
+	type?: "all" | "assistant";
+};
+
+export const Stuff = ({ type = "all" }: Props) => {
+	const filters = type === "assistant" ? DOCTORS : STUFF;
 	const [stuff, setStuff] = useState<TStuff | null>(null);
-	const [selectStuff, setSelectStuff] = useState(STUFF[0]);
+	const [selectStuff, setSelectStuff] = useState(filters[0]);
 	const { isOpen, onClose, onOpen } = usePopup();
 
 	const { loading, error, data } = useQuery(GET_TABLE_STUFF, {
-		variables: { roles: STUFF },
+		variables: { roles: filters },
 	});
 	const { role: userRole } = useAppSelector((state) => state.auth.user);
-	// const { user } = useAppSelector((state) => state.auth);
-	// const {role: userRole = ''} = user
 
 	useEffect(() => {
 		if (data) {
-			const splittedData = splitDataByRole<UserWithData>(data.getUsersByRolesWithData, STUFF);
+			const splittedData = splitDataByRole<UserWithData>(data.getUsersByRolesWithData, filters);
 			setStuff(splittedData);
 		}
 	}, [data]);
@@ -47,7 +50,7 @@ export const Stuff = () => {
 		<section className="stuff">
 			<nav className="stuff-nav">
 				<div className="stuff-filters">
-					{STUFF.map((role) => (
+					{filters.map((role) => (
 						<Fragment key={role}>
 							<input
 								id={role}

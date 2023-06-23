@@ -65,7 +65,7 @@ const db = {
 		{
 			id: 26643435,
 			name: "Q1",
-			users: [13543233, 543455646],
+			users: [385475646],
 			createdAt: 1685636973,
 			require: [
 				{ label: "Assistant In", must: false },
@@ -82,7 +82,7 @@ const db = {
 		{
 			id: 26645343,
 			name: "A3",
-			users: [543455646, 543455646],
+			users: [543455646],
 			createdAt: 1685336973,
 			require: [
 				{ label: "Assistant In", must: false },
@@ -94,10 +94,18 @@ const db = {
 		{
 			id: 324324335,
 			name: "B4",
-			users: [543455646, 385475646],
+			users: [385475646],
 			createdAt: 1685936973,
 			require: [{ label: "Empty", must: false }],
 		},
+
+		...Array(50).fill(1).map((e,i) => ({
+			id: Math.floor(Math.random() * 100000),
+			name: `${String.fromCharCode(65 + Math.floor(Math.random() * 25))}${i}`,
+			users: [],
+			createdAt: Math.floor(Math.random() * 1000000),
+			require: [],
+		  }))
 	],
 };
 

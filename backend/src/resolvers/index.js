@@ -64,6 +64,24 @@ const queries = {
 		return db.rums;
 	},
 
+	getRumsWithData: () => {
+		const foundRums = db.rums.map((rum) => {
+			if (rum.users) {
+				const foundUsers = rum.users.map((userId) => {
+					return db.users.find(({ id }) => id === Number(userId));
+				});
+				return {
+					...rum,
+					users: foundUsers,
+				};
+			} else {
+				return rum;
+			}
+		});
+
+		return foundRums;
+	},
+
 	getRumsByIds: ({ ids }) => {
 		return db.rums.filter(({ id }) => ids.includes(String(id)));
 	},
@@ -79,7 +97,6 @@ const mutations = {
 		const result = authenticateUser(email, password);
 		return result;
 	},
-
 	createUser: ({ input }) => {
 		const { name, phone, email, password, role, doctors } = input;
 
@@ -104,34 +121,51 @@ const mutations = {
 	createRum: ({ input }) => {
 		const { name, users, createdAt, require } = input;
 
-		// м тип це число а функція повертає строку
-		// const newRumId = uuidv4();
 		const newRumId = Date.now();
 
 		const newRum = {
 			id: newRumId,
 			name,
-			users,
-			createdAt,
-			require,
+			users: users || [],
+			createdAt: Date.now(),
+			require: require || [],
 		};
 		db.rums.push(newRum);
 
 		return newRum;
 	},
 	deleteUserFromRum: ({ rumId, userId }) => {
-		const rumIndex = db.rums.findIndex((rum) => rum.id === rumId);
+		const rumIndex = db.rums.findIndex((rum) => rum.id == rumId);
 		if (rumIndex === -1) {
 			throw new Error("Rum not found");
 		}
 
 		const rum = db.rums[rumIndex];
-		const userIndex = rum.users.findIndex((user) => user === userId);
+		const userIndex = rum.users.findIndex((user) => user == userId);
 		if (userIndex === -1) {
 			throw new Error("User not found in the rum");
 		}
 
 		rum.users.splice(userIndex, 1);
+
+		return rum;
+	},
+
+	addUserInRum: ({ rumId, userId }) => {
+		const rumIndex = db.rums.findIndex((rum) => rum.id == rumId);
+		const userIndex = db.users.findIndex((user) => user.id == userId);
+		if (rumIndex === -1) {
+			throw new Error("Rum not found");
+		}
+
+		if (userIndex === -1) {
+			throw new Error("User not found");
+		}
+
+		const rum = db.rums[rumIndex];
+		const user = db.users[userIndex];
+		rum.users = Array.from(new Set([...rum.users, userId]));
+		user.rums = Array.from(new Set([...user.rums, rumId]));
 
 		return rum;
 	},
@@ -166,7 +200,8 @@ const mutations = {
 		rumIdsToRemove.forEach((rumId) => {
 			const rumIndex = db.rums.findIndex(({ id }) => id == rumId);
 			if (rumIndex !== -1) {
-				db.rums[rumIndex].users = db.rums[rumIndex].users.filter((id) => id != rumId);
+				const rum = db.rums[rumIndex]
+				rum.users = rum.users.filter((id) => id != userId);
 			}
 		});
 
@@ -183,7 +218,7 @@ const mutations = {
 		return rum;
 	},
 	deleteRum: ({ rumId }) => {
-		const rumIndex = db.rums.findIndex((rum) => rum.id === rumId);
+		const rumIndex = db.rums.findIndex((rum) => rum.id == rumId);
 		if (rumIndex === -1) {
 			throw new Error("Rum not found");
 		}
@@ -220,6 +255,19 @@ const mutations = {
 		user.password = password || user.password;
 
 		return user;
+	},
+
+	updateRoomName: ({ rumId, name }) => {
+		const rumIndex = db.rums.findIndex((rum) => rum.id == rumId);
+		if (rumIndex === -1) {
+			throw new Error("Rum not found");
+		}
+
+		const rum = db.rums[rumIndex];
+
+		rum.name = name;
+
+		return rum;
 	},
 
 	changeAssistantDoctorsList: ({ assistantId, doctorId }) => {
