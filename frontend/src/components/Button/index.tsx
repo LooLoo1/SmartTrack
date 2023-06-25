@@ -6,7 +6,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 	rightChild?: ReactElement;
 	variant?: "default" | "text" | "out" | "table" | "plus";
 	size?: "small" | "medium" | "large";
-	color?: "green" | "orange";
+	color?: "green" | "orange" | "purple";
 };
 
 export const Button = ({

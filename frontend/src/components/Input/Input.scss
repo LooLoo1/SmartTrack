@@ -31,7 +31,22 @@
 		&.error {
 			--color: red;
 		}
-		.default {
+		&.default {
+		}
+		&.primary {
+			background-color: rgb(var(--accent-color));
+			color: white;
+			&::placeholder {
+				color: white;
+			}
+		}
+
+		&.secondary {
+			background-color: rgb(var(--orange-color));
+			color: white;
+			&::placeholder {
+				color: white;
+			}
 		}
 	}
 

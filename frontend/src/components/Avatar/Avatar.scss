@@ -9,6 +9,10 @@
 	border: 2px solid rgb(var(--color));
 	background-image: linear-gradient(rgba(var(--color), 0.2), rgba(var(--color), 0.2)), linear-gradient(white, white);
 
+	overflow: hidden;
+	text-align: center;
+	line-height: 100%;
+
 	&.small {
 		width: 3.33rem;
 		font-size: 1.33rem;

@@ -23,7 +23,7 @@ type Props = {
 export const Stuff = ({ type = "all" }: Props) => {
 	const filters = type === "assistant" ? DOCTORS : STUFF;
 	const [stuff, setStuff] = useState<TStuff | null>(null);
-	const [selectStuff, setSelectStuff] = useState(filters[0]);
+	const [selectStuff, setSelectStuff] = useState<string>(filters[0]);
 	const { isOpen, onClose, onOpen } = usePopup();
 
 	const { loading, error, data } = useQuery(GET_TABLE_STUFF, {

@@ -86,6 +86,9 @@ const stringToColor = (str: string): string => {
 	// if (cssVariables[key]) {
 	// 	return cssVariables[key];
 	// }
+	if (str.includes(",")) {
+		str = `rgb(${str})`;
+	}
 	const type = validColor(str);
 
 	if (type === "Var") {

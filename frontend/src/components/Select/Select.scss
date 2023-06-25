@@ -64,6 +64,7 @@
 		}
 
 		input:focus-visible + label {
+			color: rgb(var(--color-white));
 			background-color: rgba(var(--accent-color), 1);
 		}
 

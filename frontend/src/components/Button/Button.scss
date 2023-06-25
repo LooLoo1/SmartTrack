@@ -67,7 +67,7 @@
 	}
 
 	&.out {
-		color: rgb(var(--out-color));
+		color: rgb(var(--main-color));
 		background-color: transparent;
 		border: 2px solid transparent;
 
@@ -165,6 +165,7 @@
 				border-radius: 2rem;
 				top: 50%;
 				left: 50%;
+				transition: all 0.2s;
 				transform: translate(-50%, -50%);
 				background-color: rgb(var(--color-white));
 			}
@@ -202,6 +203,10 @@
 	}
 	&.orange {
 		--main-color: var(--orange-color);
+	}
+
+	&.purple {
+		--main-color: var(--out-color);
 	}
 }
 

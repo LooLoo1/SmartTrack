@@ -2,12 +2,12 @@ import { ChangeEvent, Fragment, KeyboardEvent, useEffect, useRef, useState } fro
 import { Arrow } from "../Icon";
 import "./Select.scss";
 
-type Option = {
+export type Option = {
 	value: string;
 	label: string;
 };
 
-type Props = {
+export type Props = {
 	options: Option[];
 	selectedValue: string;
 	onChange: (value: string) => void;

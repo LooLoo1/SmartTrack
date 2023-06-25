@@ -2,9 +2,13 @@ import { CSSProperties, HTMLAttributes } from "react";
 import "./Avatar.scss";
 
 type Props = HTMLAttributes<HTMLDivElement> & {
+	/** Size of the avatar (small, medium, large) */
 	size?: "small" | "medium" | "large";
+	/** Title or label for the avatar */
 	title?: string | number;
+	/** Flag indicating if the avatar is a "must" avatar */
 	must?: boolean;
+	/** Maximum length of the title */
 	maxLength?: number;
 };
 
