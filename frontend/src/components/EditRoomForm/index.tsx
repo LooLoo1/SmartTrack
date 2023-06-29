@@ -44,6 +44,7 @@ export const EditRoomForm = ({ data = {}, onClose, type = "Edit", refetch }: Pro
 					name,
 					users: [],
 					require: [],
+					createdAt: String(Date.now())
 				},
 			});
 		}

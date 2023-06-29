@@ -53,3 +53,9 @@ export type RumWithData = {
 	createdAt: number;
 	require: Requirement[];
 };
+
+export type TDoctorsList = {
+	id: string;
+	name: string;
+	maxLength?: number
+};

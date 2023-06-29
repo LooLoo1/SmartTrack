@@ -1,6 +1,7 @@
 import { HTMLAttributes, forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import { GridContextProvider, GridDropZone, GridItem } from "react-grid-dnd";
 import { ComparisonResult, compareObjects } from "../../helpers";
+import { TDoctorsList } from "../../types";
 import { Button } from "../Button";
 import { Popup } from "../Popup";
 import { RumItem } from "../RumItem";
@@ -14,6 +15,7 @@ import { GridId } from "./types";
 
 type Props = HTMLAttributes<HTMLDivElement> & {
 	doctorId?: string;
+	doctors: TDoctorsList[];
 };
 
 const ItemWidth = 140;
@@ -24,10 +26,11 @@ const initialColumnWidths = {
 	[GridId.GridList]: ItemWidth,
 };
 
-export const RoomsDragDrop = forwardRef(({ doctorId = "" }: Props, ref) => {
+export const RoomsDragDrop = forwardRef(({ doctorId = "", doctors }: Props, ref) => {
+	const maxLength: number = doctors.find((doctor) => doctor.id == doctorId)?.maxLength || 0;
 	const containerRef = useRef<HTMLDivElement>(null);
 	const { rums, boxes, setBoxes, refetch, loading, error } = useRoomsData(doctorId);
-	const { deleteUserFromRum, addUserInRum } = useMutationHandlers(doctorId);
+	const { deleteUserFromRum, addUserInRum, delLoading, addLoading } = useMutationHandlers(doctorId, refetch);
 	const { popups, popupTitle, isOpen, onClose, onCreate, onEdit, onDelete } = usePopupActions(rums, refetch);
 	const { rowCount, containersHeight, handleResize } = useResize(
 		containerRef,
@@ -36,21 +39,17 @@ export const RoomsDragDrop = forwardRef(({ doctorId = "" }: Props, ref) => {
 		initialColumnWidths,
 		ItemsGap,
 	);
-	const { onChange } = useDnd(boxes, setBoxes);
+	const { onChange } = useDnd(boxes, setBoxes, maxLength);
 
 	useImperativeHandle(ref, () => ({
 		saveRoomsChanges() {
 			const localData = localStorage.getItem(doctorId) || "";
 			const result: ComparisonResult = compareObjects(JSON.parse(localData), boxes);
 
-			result[GridId.GridSelect]?.forEach((id) => {
-				addUserInRum(String(id));
-			});
-
-			result[GridId.GridList]?.forEach((id) => {
-				deleteUserFromRum(String(id));
-			});
-			refetch();
+			const addIds = result[GridId.GridSelect]?.map((id) => String(id));
+			const delIds = result[GridId.GridList]?.map((id) => String(id));
+			addUserInRum(addIds || []);
+			deleteUserFromRum(delIds || []);
 		},
 	}));
 
@@ -70,6 +69,9 @@ export const RoomsDragDrop = forwardRef(({ doctorId = "" }: Props, ref) => {
 		<div>
 			<GridContextProvider onChange={onChange}>
 				<div className="dnd-box" ref={containerRef}>
+					<h2 className="dnd-box_title">
+						{delLoading || addLoading || loading ? "Loading..." : "Drag and Drop rooms to the box"}
+					</h2>
 					<GridDropZone
 						className="dnd-box_dnd"
 						id={GridId.GridSelect}
@@ -77,7 +79,7 @@ export const RoomsDragDrop = forwardRef(({ doctorId = "" }: Props, ref) => {
 						rowHeight={ItemWidth + ItemsGap}
 						style={containersHeight[GridId.GridSelect]}
 					>
-						{boxes[GridId.GridSelect].map((rum, i) => (
+						{boxes[GridId.GridSelect].map((rum) => (
 							<GridItem key={rum.id}>
 								<RumItem data={rum} size="small" onEdit={onEdit} onDelete={onDelete} />
 							</GridItem>

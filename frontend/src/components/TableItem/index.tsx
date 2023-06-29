@@ -13,9 +13,9 @@ import { Popup } from "../Popup";
 import "./TableItem.scss";
 import { useTableItemRows } from "./hooks/useTableItemRows";
 
-type Props = { data: UserWithData; role: string; index?: number };
+type Props = { data: UserWithData; role: string; index?: number; refetch?: () => void };
 
-export const TableItem = ({ data, role, index = 0 }: Props) => {
+export const TableItem = ({ data, role, index = 0, refetch }: Props) => {
 	const { isOpen, onClose, onOpen } = usePopup();
 	const { id: userId, role: userRole, doctors = [] } = useAppSelector((state) => state.auth.user);
 
@@ -28,7 +28,7 @@ export const TableItem = ({ data, role, index = 0 }: Props) => {
 	const editUser = useCallback(
 		({ id, name, phone, email }: Partial<UserWithData>) => {
 			setPopupTitle("Edit " + capitalizeFirstLetter(role));
-			setPopup(<EditUserForm data={{ id, name, phone, email }} onClose={onClose} />);
+			setPopup(<EditUserForm data={{ id, name, phone, email }} onClose={onClose} refetch={refetch} />);
 			onOpen();
 		},
 		[onClose, onOpen, role],
@@ -37,7 +37,7 @@ export const TableItem = ({ data, role, index = 0 }: Props) => {
 	const deleteUser = useCallback(
 		({ id, role }: Partial<UserWithData>) => {
 			setPopupTitle("Delete " + capitalizeFirstLetter(role || ""));
-			setPopup(<DeleteForm data={{ id, role }} type={"user"} onClose={onClose} />);
+			setPopup(<DeleteForm data={{ id, role }} type={"user"} onClose={onClose} refetch={refetch} />);
 			onOpen();
 		},
 		[onClose, onOpen],

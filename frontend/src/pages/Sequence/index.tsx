@@ -4,22 +4,17 @@ import { GET_DOCTORS_NAMES } from "../../apollo-client/query";
 import { Button } from "../../components/Button";
 import { RoomsDragDrop } from "../../components/RoomsDragDrop";
 import { Select } from "../../components/Select";
-import { Doctor } from "../../types";
+import { Doctor, TDoctorsList } from "../../types";
 import "./Sequence.scss";
 
-type TDoctorsList = {
-	id: string;
-	name: string;
-};
-
 type DndRefType = {
-	saveRoomsChanges: () => void;
+	saveRoomsChanges: (maxLength?: number) => void;
 };
 
 const UserSelect = localStorage.getItem("UserSelect");
 
 export const Sequence = () => {
-	const placeholder = { id: "", name: "" };
+	const placeholder = { id: "", name: "", maxLength: 0 };
 	const option = UserSelect ? JSON.parse(UserSelect) : null;
 	const [doctors, setDoctors] = useState<TDoctorsList[]>([]);
 	const [selectedOption, setSelectedOption] = useState("Loading...");
@@ -27,7 +22,7 @@ export const Sequence = () => {
 
 	const dndRef: MutableRefObject<DndRefType | null> = useRef(null);
 
-	const { loading, error, data } = useQuery(GET_DOCTORS_NAMES, {
+	const { loading, error, data, refetch } = useQuery(GET_DOCTORS_NAMES, {
 		variables: { roles: [Doctor] },
 	});
 
@@ -38,6 +33,7 @@ export const Sequence = () => {
 
 	const handleOptionChange = (value: string) => {
 		setSelectedOption(value);
+		refetch()
 		const { id, name } = doctors.find(({ name }) => name == value) || placeholder;
 		if (id) {
 			setSelectedId(String(id));
@@ -83,7 +79,7 @@ export const Sequence = () => {
 				<Button onClick={handleSave}>Save</Button>
 			</div>
 
-			<RoomsDragDrop ref={dndRef} doctorId={selectedId} />
+			<RoomsDragDrop ref={dndRef} doctorId={selectedId} doctors={doctors}/>
 		</section>
 	);
 };

@@ -4,7 +4,7 @@ const Mutation = `
 		login(email: String!, password: String!): AuthResponse!
 
 		createUser(input: CreateUserInput!): User!
-		createRum(input: CreateRumInput!): Rum!
+		createRum(input: CreateRumInput!): Rum
 
 		deleteUserFromRum(rumId: ID!, userId: ID!): Rum
 		addUserInRum(rumId: ID!, userId: ID!): Rum

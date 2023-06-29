@@ -5,6 +5,7 @@ export const GET_DOCTORS_NAMES = gql`
 		getUsersByRoles(roles: $roles) {
 			id
 			name
+			maxLength
 		}
 	}
 `;

@@ -18,10 +18,11 @@ type FormData = {
 type PropsEditUser = {
 	data?: Partial<UserWithData>;
 	onClose: () => void;
+	refetch?: () => void;
 	type?: "Edit" | "Create";
 };
 
-export const EditUserForm = ({ data = {}, onClose, type = "Edit" }: PropsEditUser) => {
+export const EditUserForm = ({ data = {}, onClose, type = "Edit", refetch }: PropsEditUser) => {
 	const { id, name, phone, email, role = "assistant" } = data;
 	const [editUser] = useMutation(EDIT_USER);
 	const [createUser] = useMutation(CREATE_USER);
@@ -66,7 +67,7 @@ export const EditUserForm = ({ data = {}, onClose, type = "Edit" }: PropsEditUse
 				},
 			});
 		}
-
+		if (refetch) setInterval(refetch,1000);
 		onClose();
 	};
 

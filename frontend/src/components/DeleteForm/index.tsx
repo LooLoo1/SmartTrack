@@ -21,7 +21,7 @@ export const DeleteForm = ({ data, onClose, type = "user", refetch }: Props) => 
 	const onDelete = () => {
 		if (type === "user") mutations(deleteUser, { userId: id });
 		if (type === "room") mutations(deleteRum, { rumId: id });
-		if (refetch) refetch()
+		if (refetch) setTimeout(refetch,1000);
 		onClose();
 	};
 

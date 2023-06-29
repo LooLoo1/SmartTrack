@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 
-type CSSVariables = { [key: string]: string };
-
 enum ColorType {
 	Var = "Var",
 	CSSVar = "--",
@@ -14,8 +12,6 @@ enum ColorType {
 const COLOR_REGEX = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 const RGB_REGEX = /^rgb(a)?\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*(,\s*\d+(\.\d+)?)?\s*\)$/;
 const HSL_REGEX = /^hsl(a)?\(\s*\d+(\.\d+)?\s*,\s*\d+(\.\d+)?%\s*,\s*\d+(\.\d+)?%\s*(,\s*\d+(\.\d+)?)?\s*\)$/;
-
-// const cssVariables: CSSVariables = {};
 
 const getAllCSSVariableNames = (styleSheets: StyleSheetList = document.styleSheets): string[] => {
 	const cssVars: string[] = [];
@@ -82,10 +78,6 @@ const validColor = (str: string) => {
 };
 
 const stringToColor = (str: string): string => {
-	// const key = str;
-	// if (cssVariables[key]) {
-	// 	return cssVariables[key];
-	// }
 	if (str.includes(",")) {
 		str = `rgb(${str})`;
 	}
@@ -105,7 +97,6 @@ const stringToColor = (str: string): string => {
 	if (type === "String") {
 		return str;
 	}
-	// cssVariables[key] = str;
 
 	return str;
 };

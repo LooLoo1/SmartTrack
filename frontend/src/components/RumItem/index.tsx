@@ -1,5 +1,4 @@
 import { useMutation } from "@apollo/client";
-import dayjs from "dayjs";
 import { HTMLAttributes, useEffect, useMemo, useState } from "react";
 import { mutations } from "../../api/mutations";
 import { UPDATE_RUM_REQUIRE } from "../../apollo-client/mutation";
@@ -28,7 +27,9 @@ export const RumItem = ({ data, size = "medium", className = "", onDelete, onEdi
 	const { isOpen, onClose, onOpen } = usePopup();
 	const { avatarTitle, avatarColor, avatarMust, lastItemLabel, mustExist } = useRequireData(newRequire);
 
-	const time = dayjs(createdAt, "HH:mm:ss").format("HH:mm");
+	const dataTime = new Date(Number(createdAt));
+	const time = `${dataTime.getHours().toString().padStart(2, '0')}:${dataTime.getMinutes().toString().padStart(2, '0')}`
+
 	const classNameRum = useMemo(
 		() => `rum ${size} ${className} ${isOpen ? "shadow" : ""} ${mustExist ? "must" : ""}`,
 		[size, className, isOpen, mustExist],

@@ -4,7 +4,7 @@ import { mutations } from "../../api/mutations";
 import { RESET_DOCTOR_RUMS, SET_DOCTOR_MAX_LENGTH } from "../../apollo-client/mutation";
 import { GET_DOCTORS_ROOMS } from "../../apollo-client/query";
 import { useCustomScroll } from "../../hooks";
-import { TDoctor, Rum } from "../../types";
+import { Rum, TDoctor } from "../../types";
 import { Button } from "../Button";
 import { RumItem } from "../RumItem";
 import "./DoctorLine.scss";
@@ -29,11 +29,11 @@ export const DoctorLine = ({ data }: Props) => {
 	const [resetDoctorRums] = useMutation(RESET_DOCTOR_RUMS);
 
 	const updateLength = async (newLength: number) => {
-		const result = await mutations(updateDoctorLength, {
+		setLength(newLength);
+		await mutations(updateDoctorLength, {
 			userId: id,
 			maxLength: newLength,
 		});
-		setLength(result.updateDoctorLength.maxLength);
 	};
 
 	const increment = () => {
@@ -41,7 +41,7 @@ export const DoctorLine = ({ data }: Props) => {
 	};
 
 	const decrement = () => {
-		updateLength(length - 1);
+		if (!(length <= 0)) updateLength(length - 1);
 	};
 
 	const reset = async () => {
@@ -56,7 +56,7 @@ export const DoctorLine = ({ data }: Props) => {
 	useEffect(() => {
 		if (rumsData) {
 			setRums(rumsData.getRumsByIds);
-			setLength(maxLength);
+			setLength(maxLength ? maxLength : 0);
 		}
 	}, [rumsData]);
 

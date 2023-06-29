@@ -1,10 +1,9 @@
-
 const Rum = `
   type Rum {
     id: ID!
     name: String!
     users: [ID!]
-    createdAt: Int!
+    createdAt: String!
     require: [Requirement!]!
   }
 
@@ -12,7 +11,7 @@ const Rum = `
     id: ID!
     name: String!
     users: [User!]
-    createdAt: Int!
+    createdAt: String!
     require: [Requirement!]!
   }
 
@@ -20,6 +19,7 @@ const Rum = `
     name: String!
     users: [ID!]!
     require: [RequirementInput!]!
+    createdAt: String!
   }
 `;
 

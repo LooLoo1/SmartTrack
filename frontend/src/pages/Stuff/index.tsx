@@ -26,7 +26,7 @@ export const Stuff = ({ type = "all" }: Props) => {
 	const [selectStuff, setSelectStuff] = useState<string>(filters[0]);
 	const { isOpen, onClose, onOpen } = usePopup();
 
-	const { loading, error, data } = useQuery(GET_TABLE_STUFF, {
+	const { loading, error, data, refetch } = useQuery(GET_TABLE_STUFF, {
 		variables: { roles: filters },
 	});
 	const { role: userRole } = useAppSelector((state) => state.auth.user);
@@ -73,14 +73,14 @@ export const Stuff = ({ type = "all" }: Props) => {
 					<>
 						<Button onClick={onOpen}>Add new</Button>
 						<Popup isOpen={isOpen} onClose={onClose} title={`Add new ${capitalizeFirstLetter(selectStuff)}`}>
-							<EditUserForm onClose={onClose} type="Create" />
+							<EditUserForm onClose={onClose} data={{ role: selectStuff }} type="Create" />
 						</Popup>
 					</>
 				) : null}
 			</nav>
 			<div className="table-container">
 				{stuff &&
-					stuff[selectStuff].map((user, i) => <TableItem key={user.id} data={user} role={selectStuff} index={i} />)}
+					stuff[selectStuff].map((user, i) => <TableItem key={user.id} data={user} role={selectStuff} index={i} refetch={refetch} />)}
 			</div>
 		</section>
 	);
