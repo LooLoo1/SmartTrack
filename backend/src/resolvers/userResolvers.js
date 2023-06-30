@@ -1,9 +1,14 @@
+const bcrypt = require('bcrypt');
 const { User, Rum } = require("../models");
 
 const userResolvers = {
 	createUser: async ({ input }) => {
 		try {
 			const user = new User(input);
+
+			const encryptedPassword = await bcrypt.hash(user.password, 10);
+      		user.password = encryptedPassword;
+
 			const savedUser = await user.save();
 			return savedUser;
 		} catch (error) {
@@ -114,6 +119,11 @@ const userResolvers = {
 	updateUser: async ({ input }) => {
 		try {
 			const { id, ...updates } = input;
+			if(update.password){
+				const encryptedPassword = await bcrypt.hash(update.password, 10);
+	      		update.password = encryptedPassword;
+
+			}
 			const updatedUser = await User.findByIdAndUpdate(id, updates, { new: true });
 			if (!updatedUser) {
 				throw new Error("User not found");
