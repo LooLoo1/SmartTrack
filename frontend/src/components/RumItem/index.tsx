@@ -66,7 +66,7 @@ export const RumItem = ({ data, size = "medium", className = "", onDelete, onEdi
 				</div>
 
 				<div className="body">
-					<Avatar size={size} title={name} color={"var(--accent-color)"} must={avatarMust} maxLength={5} />
+					<Avatar size={size} title={name} color={"var(--accent-color)"} must={avatarMust} maxLength={5} className="body-avatar" />
 					{users[0] && <p className="body-label">{users[0]}</p>}
 				</div>
 			</div>

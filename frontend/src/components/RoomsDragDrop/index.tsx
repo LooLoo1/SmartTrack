@@ -18,27 +18,16 @@ type Props = HTMLAttributes<HTMLDivElement> & {
 	doctors: TDoctorsList[];
 };
 
-const ItemWidth = 140;
 const ItemsGap = 6;
-
-const initialColumnWidths = {
-	[GridId.GridSelect]: ItemWidth,
-	[GridId.GridList]: ItemWidth,
-};
 
 export const RoomsDragDrop = forwardRef(({ doctorId = "", doctors }: Props, ref) => {
 	const maxLength: number = doctors.find((doctor) => doctor.id == doctorId)?.maxLength || 0;
 	const containerRef = useRef<HTMLDivElement>(null);
+
 	const { rums, boxes, setBoxes, refetch, loading, error } = useRoomsData(doctorId);
 	const { deleteUserFromRum, addUserInRum, delLoading, addLoading } = useMutationHandlers(doctorId, refetch);
 	const { popups, popupTitle, isOpen, onClose, onCreate, onEdit, onDelete } = usePopupActions(rums, refetch);
-	const { rowCount, containersHeight, handleResize } = useResize(
-		containerRef,
-		boxes,
-		rums,
-		initialColumnWidths,
-		ItemsGap,
-	);
+	const { rowCount, containersHeight, handleResize, itemWidth } = useResize(containerRef, boxes, rums, ItemsGap);
 	const { onChange } = useDnd(boxes, setBoxes, maxLength);
 
 	useImperativeHandle(ref, () => ({
@@ -76,7 +65,7 @@ export const RoomsDragDrop = forwardRef(({ doctorId = "", doctors }: Props, ref)
 						className="dnd-box_dnd"
 						id={GridId.GridSelect}
 						boxesPerRow={rowCount}
-						rowHeight={ItemWidth + ItemsGap}
+						rowHeight={itemWidth + ItemsGap}
 						style={containersHeight[GridId.GridSelect]}
 					>
 						{boxes[GridId.GridSelect].map((rum) => (
@@ -95,7 +84,7 @@ export const RoomsDragDrop = forwardRef(({ doctorId = "", doctors }: Props, ref)
 				<GridDropZone
 					id={GridId.GridList}
 					boxesPerRow={rowCount}
-					rowHeight={ItemWidth + ItemsGap}
+					rowHeight={itemWidth + ItemsGap}
 					style={containersHeight[GridId.GridList]}
 				>
 					{boxes[GridId.GridList].map((rum, i) => (

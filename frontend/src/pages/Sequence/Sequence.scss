@@ -17,9 +17,14 @@
 	}
 }
 
+@media (max-width: 1048px) {
+	.sequence {
+		padding: 3rem;
+	}
+}
+
 @media (max-width: 600px) {
 	.sequence {
-
 		&-header {
 			display: flex;
 			flex-direction: column;

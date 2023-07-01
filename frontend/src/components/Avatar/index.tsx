@@ -12,17 +12,17 @@ type Props = HTMLAttributes<HTMLDivElement> & {
 	maxLength?: number;
 };
 
-export const Avatar = ({ size = "medium", title = "", color = "0,0,0", must = false, maxLength = 1 }: Props) => {
+export const Avatar = ({ size = "medium", title = "", color = "0,0,0", must = false, maxLength = 1, className, ...props }: Props) => {
 	const styles = {
 		"--color": color,
 	} as CSSProperties;
 
-	const classNameAvatar = `avatar ${size} ${must ? "must" : ""}`;
+	const classNameAvatar = `avatar ${size} ${must ? "must" : ""} ${className}`;
 	if (title === "Empty") title = "";
 	if (title.length > maxLength) title = title.substring(0, maxLength);
 
 	return (
-		<div className={classNameAvatar} style={styles}>
+		<div {...props} className={classNameAvatar} style={styles}>
 			{title}
 		</div>
 	);

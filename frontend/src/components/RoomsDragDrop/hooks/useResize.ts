@@ -8,9 +8,16 @@ export const useResize = (
 	containerRef: React.RefObject<HTMLDivElement>,
 	boxes: SortedDnd,
 	rums: RumWithData[],
-	initialColumnWidths: ColumnWidths,
 	ItemsGap: number,
 ) => {
+	const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+	const [itemWidth, setItemWidth] = useState(screenWidth >= 768 ? 140 : 100);
+
+	const initialColumnWidths = {
+		[GridId.GridSelect]: itemWidth,
+		[GridId.GridList]: itemWidth,
+	};
+
 	const [rowCount, setRowCount] = useState(0);
 	const [columnWidths, setColumnWidths] = useState<ColumnWidths>(initialColumnWidths);
 	const [containersHeight, setContainersHeight] = useState<Record<string, { height: string }>>({
@@ -20,7 +27,7 @@ export const useResize = (
 
 	const handleResize = () => {
 		if (containerRef.current) {
-			const divWidth = containerRef.current.offsetWidth;
+			const divWidth = containerRef.current.offsetWidth - 35;
 			const rowSize = Math.floor(divWidth / (columnWidths[GridId.GridSelect] + ItemsGap));
 			setRowCount(rowSize);
 
@@ -44,6 +51,16 @@ export const useResize = (
 	};
 
 	useEffect(() => {
+		const cWidth = screenWidth >= 768 ? 140 : 100
+		setItemWidth(cWidth);
+
+		setColumnWidths({
+			[GridId.GridSelect]: cWidth,
+			[GridId.GridList]: cWidth,
+		})
+	}, [screenWidth]);
+
+	useEffect(() => {
 		handleResize();
 
 		window.addEventListener("resize", handleResize);
@@ -51,7 +68,19 @@ export const useResize = (
 		return () => {
 			window.removeEventListener("resize", handleResize);
 		};
-	}, [rums, boxes, columnWidths, ItemsGap, containerRef, setContainersHeight, setRowCount]);
+	}, [rums, boxes, columnWidths, ItemsGap, containerRef, setContainersHeight, setRowCount, itemWidth]);
+
+	useEffect(() => {
+		const handleResize = () => {
+			setScreenWidth(window.innerWidth);
+		};
+
+		window.addEventListener("resize", handleResize);
+
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
+	}, []);
 
 	return {
 		handleResize,
@@ -61,5 +90,6 @@ export const useResize = (
 		setColumnWidths,
 		containersHeight,
 		setContainersHeight,
+		itemWidth,
 	};
 };
