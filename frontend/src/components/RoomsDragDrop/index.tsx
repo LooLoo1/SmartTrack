@@ -87,7 +87,7 @@ export const RoomsDragDrop = forwardRef(({ doctorId = "", doctors }: Props, ref)
 					rowHeight={itemWidth + ItemsGap}
 					style={containersHeight[GridId.GridList]}
 				>
-					{boxes[GridId.GridList].map((rum, i) => (
+					{boxes[GridId.GridList].map((rum) => (
 						<GridItem key={rum.id}>
 							<RumItem data={rum} size="small" onEdit={onEdit} onDelete={onDelete} />
 						</GridItem>
